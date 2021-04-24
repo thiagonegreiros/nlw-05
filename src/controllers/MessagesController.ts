@@ -1,4 +1,4 @@
-import { Request, response, Response } from "express";
+import { request, Request, response, Response } from "express";
 import { MessagesService } from "../services/MessagesService";
 
 
@@ -14,5 +14,15 @@ export class MessagesController {
     })
 
     return res.status(200).json(message);
+  }
+
+  async showByUser(request: Request, response: Response) {
+    const { id } = request.params;
+
+    const messagesService = new MessagesService();
+
+    const list = await messagesService.listByUser(id);
+
+    return response.json(list);
   }
 }
